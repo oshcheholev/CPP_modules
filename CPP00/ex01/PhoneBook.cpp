@@ -1,29 +1,22 @@
 #include "PhoneBook.hpp"
 #include <iostream>
 #include <iomanip>
-#include <limits>
 #include <string>
 #include <sstream>
 
-PhoneBook::PhoneBook() : _index(0), _count(0)
-{
-	// Constructor
-}
+PhoneBook::PhoneBook() : 
+	_index(0), 
+	_count(0)
+{}	// Constructor
+
 PhoneBook::~PhoneBook()
-{
-	// Destructor
-}
+{}	// Destructor
 
 void PhoneBook::addContact()
 {
 	Contact contact;
 	std::string input;
 
-	// if (_count >= 8)
-	// {
-	// 	std::cout << "PhoneBook is full. Cannot add more contacts." << std::endl;
-	// 	return;
-	// }
 	std::cout << "Enter first name: ";
 	std::getline(std::cin, input);
 	if (input.length() == 0)
@@ -42,6 +35,7 @@ void PhoneBook::addContact()
 		return;
 	}
 	contact.setFirstName(input);
+
 	std::cout << "Enter last name: ";
 	std::getline(std::cin, input);
 	if (input.length() == 0)
@@ -60,6 +54,7 @@ void PhoneBook::addContact()
 		return;
 	}
 	contact.setLastName(input);
+
 	std::cout << "Enter nickname: ";
 	std::getline(std::cin, input);
 	if (input.length() == 0)
@@ -78,6 +73,7 @@ void PhoneBook::addContact()
 		return;
 	}
 	contact.setNickname(input);
+
 	std::cout << "Enter phone number: ";
 	std::getline(std::cin, input);
 	if (input.length() > 15)
@@ -96,6 +92,7 @@ void PhoneBook::addContact()
 		return;
 	}
 	contact.setPhoneNumber(input);
+
 	std::cout << "Enter darkest secret: ";
 	std::getline(std::cin, input);
 	if (input.length() == 0)
@@ -105,7 +102,7 @@ void PhoneBook::addContact()
 	}
 	if (input.length() > 20)
 	{
-		std::cout << "Darkest secret is too long. Please enter a secret with less than 50 characters." << std::endl;
+		std::cout << "Darkest secret is too long. Please enter a secret with less than 20 characters." << std::endl;
 		return;
 	}
 	contact.setDarkestSecret(input);
@@ -136,7 +133,8 @@ void PhoneBook::searchContact() const
 			<< std::setw(10) << "Index " << "|" 
 			<< std::setw(10) << "First Name" << "|" 
 			<< std::setw(10) << "Last Name" << "|" 
-			<< std::setw(10) << "Nickname  |" << std::endl;
+			<< std::setw(10) << "Nickname  |" 
+			<< std::endl;
 	std::cout << "+-------------------------------------------+" << std::endl;
 //			  std::cout << std::string(42, '-') << std::endl;
 
@@ -167,40 +165,32 @@ void PhoneBook::printContactInfo() const
 	searchContact();
 	std::cout << "Enter the index of the contact you want to view (1-" << _count << "): ";
 	std::getline(std::cin, input);
-	try
+
+	if (std::cin.eof())
 	{
-		std::stringstream ss(input);
-		if (!(ss >> i)) {
-			std::cout << "Invalid input. Please enter a number1." << std::endl;
-			return;
-		}
-	}
-	catch (const std::invalid_argument &e)
-	{
-		std::cout << "Invalid input. Please enter a number." << std::endl;
+		std::cout 	<< "Exiting PhoneBook." 
+					<< std::endl;
 		return;
 	}
-	catch (const std::out_of_range &e)
-	{
-		std::cout << "Input out of range." << std::endl;
+	std::stringstream ss(input);
+	if (!(ss >> i)) {
+		std::cout 	<< "Invalid input. Please enter a number." 
+					<< std::endl;
 		return;
 	}
 	if (input.length() == 0)
 	{
-		std::cout << "Index cannot be empty." << std::endl;
-		return;
-	}
-	if (std::cin.eof())
-	{
-		std::cout << "Exiting PhoneBook." << std::endl;
+		std::cout 	<< "Index cannot be empty." 
+					<< std::endl;
 		return;
 	}
 
-	if (i < 0 || i > _count)
+	if (i <= 0 || i > _count)
 	{
-		std::cout << "Invalid index: " << i << std::endl;
-		std::cout << "Please enter a number between 1 and " << _count << "." << std::endl;
-		std::cout << std::endl;
+		std::cout 	<< "Invalid index: " << i << std::endl;
+		std::cout 	<< "Please enter a number between 1 and " << _count << "." 
+					<< std::endl;
+		std::cout 	<< std::endl;
 		return;
 	}
 	std::cout << "Contact " << i << ":" << std::endl;
@@ -209,8 +199,9 @@ void PhoneBook::printContactInfo() const
 
 void PhoneBook::exit() const
 {
-	std::cout << std::endl << "Exiting PhoneBook. Goodbye!" << std::endl;
+	std::cout 	<< std::endl 
+				<< "Exiting PhoneBook. Goodbye!" 
+				<< std::endl;
 }
-
 
 // PhoneBook.cpp

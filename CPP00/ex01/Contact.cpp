@@ -7,14 +7,10 @@ Contact::Contact() :
 	_nickname(""),
 	_phoneNumber(""),
 	_darkestSecret("")
-{
-	// Constructor
-}
+{} // Constructor
 
 Contact::~Contact()
-{
-	// Destructor
-}
+{} // Destructor
 void	Contact::setFirstName(std::string firstName)
 {
 	this->_firstName = firstName;
@@ -56,12 +52,6 @@ std::string	Contact::getDarkestSecret() const
 	return this->_darkestSecret;
 }
 
-bool	Contact::isEmpty() const
-{
-	return this->_firstName.empty() && this->_lastName.empty() && this->_nickname.empty()
-		&& this->_phoneNumber.empty() && this->_darkestSecret.empty();
-}
-
 void	Contact::printContact() const
 {
 	std::cout << "First Name: " << this->_firstName << std::endl;
@@ -71,17 +61,5 @@ void	Contact::printContact() const
 	std::cout << "Darkest Secret: " << this->_darkestSecret << std::endl;
 }
 
-void	Contact::printContactInfo(std::string str) const
-{
-	if (str == "firstName")
-		std::cout << "First Name: " << this->_firstName << std::endl;
-	else if (str == "lastName")
-		std::cout << "Last Name: " << this->_lastName << std::endl;
-	else if (str == "nickname")
-		std::cout << "Nickname: " << this->_nickname << std::endl;
-	else if (str == "phoneNumber")
-		std::cout << "Phone Number: " << this->_phoneNumber << std::endl;
-	else if (str == "darkestSecret")
-		std::cout << "Darkest Secret: " << this->_darkestSecret << std::endl;
-}
+
 // Contact.cpp
