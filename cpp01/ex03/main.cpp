@@ -11,7 +11,7 @@ int main()
 		std::cout << "FROM SUBJECT" << std::endl;
 		std::cout << "HUMAN A" << std::endl;
 		Weapon club = Weapon("crude spiked club");
-		HumanA bob("Bob", club);
+		HumanA bob("Bob", &club);
 		bob.attack();
 		club.setType("some other type of club");
 		bob.attack();
@@ -29,7 +29,7 @@ int main()
 	}
 	//MY TEST
 	{
-		std::cout << "MY TEST" << std::endl;
+		std::cout << "MY TEST FOR HUMAN B" << std::endl;
 		Weapon club = Weapon("AXE");
 		HumanB tom("Jim");
 		tom.attack();

@@ -8,20 +8,10 @@ HumanB::HumanB(const std::string& name) : _name(name), _weapon(NULL) {}
 
 void HumanB::setWeapon(Weapon& weapon)
 {
-	if (this->_weapon != NULL) 
-	{
-		std::cout   << this->_name 
-					<< " changes weapon to " 
-					<< weapon.getType() 
-					<< std::endl;
-	}
-	else
-	{
-		std::cout   << this->_name 
-					<< " picks up " 
-					<< weapon.getType() 
-					<< std::endl;
-	}
+	std::cout   << this->_name 
+				<< " changes weapon to " 
+				<< weapon.getType() 
+				<< std::endl;
 	this->_weapon = &weapon;
 }
 
