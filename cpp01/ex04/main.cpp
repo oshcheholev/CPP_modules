@@ -35,11 +35,18 @@ int main(int argc, char **argv)
 	}
 	while (std::getline(file, line))
 	{
-		std::string::size_type pos = 0;
+		size_t pos = 0;
+		// line.find(s1, pos) returns the position of the first
+		// occurrence of s1 in line, starting at position pos
+		// if s1 is not found, it returns std::string::npos
+		
 		while ((pos = line.find(s1, pos)) != std::string::npos)
 		{
-			line.replace(pos, s1.length(), s2);
-			pos += s2.length();
+			// line.substr(pos, s1.length()) returns the substring
+			// starting at position pos and of length s1.length()
+			// we could make it with line.erase and line.insert
+			// or 
+			 line = line.substr(0, pos) + s2 + line.substr(pos + s1.length());
 		}
 		new_file << line << std::endl;
 	}
