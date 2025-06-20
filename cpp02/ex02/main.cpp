@@ -53,10 +53,12 @@ void testComparisonOperators() {
 void testIncrementDecrement() {
     printTitle("Increment/Decrement");
     
-    Fixed a(1);
-    std::cout << "1a = " << a << std::endl;
-    ++a;
-    std::cout << "1a++ = " << a << std::endl;
+    Fixed a(0);
+    int bb = a.toInt(); // Convert Fixed to int for display
+    std::cout << "1a = " << a << "  bb " << bb << std::endl;
+    a++;
+    bb = a.toInt(); // Convert Fixed to int for display
+    std::cout << "1a++ " << a << "  bb " << bb << std::endl;
 
     std::cout << "++a = " << ++a << std::endl;
     std::cout << "a = " << a.toInt() << std::endl;
