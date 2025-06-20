@@ -116,7 +116,7 @@ Fixed Fixed::operator/(const Fixed& other) const {
 
 Fixed& Fixed::operator++() {
     std::cout << "Pre-increment  " << this->_fixedPointValue << std::endl;
-    this->_fixedPointValue++;
+    ++_fixedPointValue;
     std::cout << "Pre-increment1  " << this->_fixedPointValue << std::endl;
 
     return *this;

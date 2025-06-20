@@ -53,15 +53,20 @@ void testComparisonOperators() {
 void testIncrementDecrement() {
     printTitle("Increment/Decrement");
     
-    Fixed a(1);
+	float f = 1.5f;
+	std::cout << "f = " << f << std::endl;
+	f++;
+	std::cout << "f++ = " << f << std::endl;
+
+    Fixed a(1.5f);
     std::cout << "1a = " << a << std::endl;
-    ++a;
+    a++;
     std::cout << "1a++ = " << a << std::endl;
 
     std::cout << "++a = " << ++a << std::endl;
-    std::cout << "a = " << a.toInt() << std::endl;
+    std::cout << "a = " << a << std::endl;
     std::cout << "a++ = " << a++ << std::endl;
-    std::cout << "a = " << a.toInt() << std::endl;
+    std::cout << "a = " << a << std::endl;
     
     std::cout << "--a = " << --a << std::endl;
     std::cout << "a = " << a << std::endl;
