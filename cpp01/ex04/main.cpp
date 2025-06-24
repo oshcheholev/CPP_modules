@@ -48,7 +48,9 @@ int main(int argc, char **argv)
 			// or 
 			 line = line.substr(0, pos) + s2 + line.substr(pos + s1.length());
 		}
-		new_file << line << std::endl;
+		new_file << line;
+		if (!file.eof())
+			new_file << std::endl; // add newline if not at end of file
 	}
 	file.close();
 	new_file.close();

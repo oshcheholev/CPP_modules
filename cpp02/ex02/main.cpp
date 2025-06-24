@@ -16,25 +16,25 @@ std::cout << "\n" << GREEN << "--- " << title << "---" << RESET << std::endl;
 std::cout << GREEN << "--------------------------------------" << RESET << std::endl;
 }
 
-void testArithmeticOperators() {
+void testArithmetic() {
     printTitle("Arithmetic Operators");
     
-    Fixed a(10.5f); // we create a Fixed object called a with a float value of 10.5
-    Fixed b(2.25f); // we create a Fixed object called b with a float value of 2.25
+    Fixed a(10.5f); 
+    Fixed b(2.25f); 
     
-    std::cout << "a = " << a << ", b = " << b << std::endl; // we print the values of a and b
+    std::cout << "a = " << a << ", b = " << b << std::endl;
     std::cout << "a + b = " << (a + b) << std::endl;
     std::cout << "a - b = " << (a - b) << std::endl;
     std::cout << "a * b = " << (a * b) << std::endl;
     std::cout << "a / b = " << (a / b) << std::endl;
-    
+
     // Test division by zero
     Fixed zero;
     std::cout << "a / 0 = ";
     std::cout << (a / zero) << std::endl;
 }
 
-void testComparisonOperators() {
+void testComparison() {
     printTitle("Comparison");
     
     Fixed a(42.42f);
@@ -53,15 +53,8 @@ void testComparisonOperators() {
 void testIncrementDecrement() {
     printTitle("Increment/Decrement");
     
-	float f = 1.5f;
-	std::cout << "f = " << f << std::endl;
-	f++;
-	std::cout << "f++ = " << f << std::endl;
-
     Fixed a(1.5f);
-    std::cout << "1a = " << a << std::endl;
-    a++;
-    std::cout << "1a++ = " << a << std::endl;
+    std::cout << "a = " << a << std::endl;
 
     std::cout << "++a = " << ++a << std::endl;
     std::cout << "a = " << a << std::endl;
@@ -77,10 +70,10 @@ void testIncrementDecrement() {
 void testMinMax() {
     printTitle("Min/Max");
     
-    Fixed a(10.1f);
-    Fixed b(10.2f);
-    Fixed const c(42.42f);
-    Fixed const d(-42.42f);
+    Fixed a(1.1f);
+    Fixed b(1.2f);
+    Fixed const c(22.22f);
+    Fixed const d(-22.22f);
     
     std::cout << "a = " << a << ", b = " << b << std::endl;
     std::cout << "c = " << c << ", d = " << d << std::endl;
@@ -91,12 +84,12 @@ void testMinMax() {
     std::cout << "max(c,d) = " << Fixed::max(c, d) << std::endl;
 }
 
-
-int main(void) {
-    printTitle("Original Test from Subject");
+void testSubject() {
+    printTitle("Subject Test");
+    
     Fixed a;
     Fixed const b(Fixed(5.05f) * Fixed(2));
-
+    
     std::cout << a << std::endl;
     std::cout << ++a << std::endl;
     std::cout << a << std::endl;
@@ -104,10 +97,14 @@ int main(void) {
     std::cout << a << std::endl;
     std::cout << b << std::endl;
     std::cout << Fixed::max(a, b) << std::endl;
+}
 
+int main(void) {
+    // Test the subject's main functionality
+    testSubject();
     // Additional comprehensive tests
-    testArithmeticOperators(); 
-    testComparisonOperators();
+    testArithmetic(); 
+    testComparison();
     testIncrementDecrement();
     testMinMax();
 

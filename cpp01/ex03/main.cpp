@@ -27,16 +27,16 @@ int main()
 		jim.attack();
 		std::cout << std::endl;
 	}
-	//MY TEST
+//MY TEST
 	{
 		std::cout << "MY TEST FOR HUMAN B" << std::endl;
 		Weapon club = Weapon("AXE");
-		HumanB tom("Jim");
-		tom.attack();
-		tom.setWeapon(club);
-		tom.attack();
+		HumanB dru("Drucilla");
+		dru.attack();
+		dru.setWeapon(club);
+		dru.attack();
 		club.setType("SWORD");
-		tom.attack();
+		dru.attack();
 	}
 
 

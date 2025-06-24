@@ -20,8 +20,8 @@ Point::~Point() {
 Point& Point::operator=(const Point& other) {
 	if (this != &other) {
 		// Copy assignment operator assigns the coordinates from another Point object
-		this->_x = other._x;
-		this->_y = other._y;
+		this->_x = other.getX();
+		this->_y = other.getY();
 	}
 	return *this;
 }

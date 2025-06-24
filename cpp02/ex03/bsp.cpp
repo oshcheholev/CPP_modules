@@ -2,7 +2,31 @@
 #include <cmath>
 #include <iostream>
 
-float myabs(float value) {
+// float mySqrt(float value) {
+// 	// Function to compute the square root of a number
+// 	float result = 0.0f;
+// 	float increment = 0.001f; // Increment for approximation
+
+// 	if (value == 0) {
+// 		return 0; // Square root of 0 is 0
+// 	}
+// 	if (value == 1) {
+// 		return 1; // Square root of 1 is 1
+// 	}
+// 	if (value < 0) {
+// 		std::cerr << "Error: Cannot compute square root of a negative number." << std::endl;
+// 		return -1; // Return an error value
+// 	}
+// 	for (float i = 0; i <= value; i += increment) {
+// 		if (i * i > value) {
+// 			break; // Stop when the square exceeds the value
+// 		}
+// 		result = i; // Update result to the current approximation
+// 	}
+// 	return result;
+// }
+
+float myAbs(float value) {
 	return (value < 0) ? -value : value;
 }
 
@@ -11,7 +35,7 @@ float triangleArea(const Point& a, const Point& b, const Point& c) {
     float x2 = b.getX(), y2 = b.getY();
     float x3 = c.getX(), y3 = c.getY();
 
-    return myabs((x1*(y2 - y3) + x2*(y3 - y1) + x3*(y1 - y2)) / 2.0f);
+    return myAbs((x1*(y2 - y3) + x2*(y3 - y1) + x3*(y1 - y2)) / 2.0f);
 }
 
 bool isPointInTriangleArea(const Point& p, const Point& a, const Point& b, const Point& c) {
@@ -32,9 +56,9 @@ bool isPointInTriangleArea(const Point& p, const Point& a, const Point& b, const
 	bool isOnEdge = (areaPAB == 0 || areaPBC == 0 || areaPCA == 0);
 
 	std::cout << "Is on edge: " << std::boolalpha << isOnEdge << std::endl;
-	std::cout << "Area difference: " << myabs(areaABC - totalArea) << std::endl;
+	std::cout << "Area difference: " << myAbs(areaABC - totalArea) << std::endl;
 
-    return !isOnEdge && myabs(areaABC - totalArea) <= epsilon.toFloat();
+    return !isOnEdge && myAbs(areaABC - totalArea) <= epsilon.toFloat();
 }
 
 bool bsp(const Point a, const Point b, const Point c, const Point point) {

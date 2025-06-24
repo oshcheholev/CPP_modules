@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cmath>
 #include "Fixed.hpp"
+#include <climits>
 
 
 Fixed::Fixed() : _fixedPointValue(0) {
@@ -30,16 +31,16 @@ Fixed::Fixed(const float value) : _fixedPointValue(static_cast<int>(roundf(value
 
 
 Fixed::Fixed(const Fixed& other) {
-    std::cout << "Copy constructor called" << std::endl;
+//    std::cout << "Copy constructor called" << std::endl;
     *this = other;
 } // Copy constructor initializes the object by copying the value from another Fixed object
 
 Fixed::~Fixed() {
-    std::cout << "Destructor called" << std::endl;
+//    std::cout << "Destructor called" << std::endl;
 } // Destructor cleans up the Fixed object, though no dynamic memory is used here
 
 Fixed& Fixed::operator=(const Fixed& otherFixed) {
-    std::cout << "Copy assignment operator called" << std::endl;
+//    std::cout << "Copy assignment operator called" << std::endl;
     if (this != &otherFixed) {
         this->_fixedPointValue = otherFixed.getRawBits();
     }
@@ -47,7 +48,7 @@ Fixed& Fixed::operator=(const Fixed& otherFixed) {
 } // Copy assignment operator assigns the value from another Fixed object to this one
 
 int Fixed::getRawBits(void) const {
-    std::cout << "getRawBits member function called" << std::endl;
+//    std::cout << "getRawBits member function called" << std::endl;
     return this->_fixedPointValue;
 } // Returns the raw fixed-point value stored in the object
 
@@ -94,14 +95,26 @@ bool Fixed::operator>=(const Fixed& other) const {
 }   // Greater than or equal to operator checks if this Fixed object is greater than or equal to another Fixed object
 
 Fixed Fixed::operator+(const Fixed& other) const {
+    if (this->_fixedPointValue + other._fixedPointValue > INT_MAX) {
+        std::cerr << "Overflow detected in addition" << std::endl;
+        return Fixed(INT_MAX); // Handle overflow by returning a Fixed object with maximum integer value
+    }
     return Fixed(this->toFloat() + other.toFloat());
 }   // Addition operator adds the fixed-point values of two Fixed objects and returns a new Fixed object
 
 Fixed Fixed::operator-(const Fixed& other) const {
+    if (this->_fixedPointValue - other._fixedPointValue < INT_MIN) {
+        std::cerr << "Underflow detected in subtraction" << std::endl;
+        return Fixed(INT_MIN); // Handle underflow by returning a Fixed object with minimum integer value
+    }
     return Fixed(this->toFloat() - other.toFloat());
 }   // Subtraction operator subtracts the fixed-point values of two Fixed objects and returns a new Fixed object
 
 Fixed Fixed::operator*(const Fixed& other) const {
+    if (this->_fixedPointValue * other._fixedPointValue > INT_MAX) {
+        std::cerr << "Overflow detected in multiplication" << std::endl;
+        return Fixed(INT_MAX); // Handle overflow by returning a Fixed object with maximum integer value
+    }
     return Fixed(this->toFloat() * other.toFloat());
 }   // Multiplication operator multiplies the fixed-point values of two Fixed objects and returns a new Fixed object
 
@@ -115,10 +128,7 @@ Fixed Fixed::operator/(const Fixed& other) const {
     // It checks for division by zero and throws an exception if the divisor is zero
 
 Fixed& Fixed::operator++() {
-    std::cout << "Pre-increment  " << this->_fixedPointValue << std::endl;
-    ++_fixedPointValue;
-    std::cout << "Pre-increment1  " << this->_fixedPointValue << std::endl;
-
+    ++this->_fixedPointValue;
     return *this;
 }   // Pre-increment operator increments the fixed-point value by 1 (in fixed-point representation) and returns the updated object
 

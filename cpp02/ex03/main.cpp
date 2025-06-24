@@ -15,43 +15,43 @@
 
 void printTitle(const std::string& title) {
 // Print a title in green
-std::cout << "\n" << GREEN << "--- " << title << "---" << RESET << std::endl;
-std::cout << GREEN << "--------------------------------------" << RESET << std::endl;
+std::cout << "\n" << BLUE << "--- " << title << " ---" << RESET << std::endl;
+std::cout << BLUE << "-------------------------------" << RESET << std::endl;
 }
 
 int main(void) {
-    printTitle("---POINT  INSIDE  TRIANGLE---");
     
     Point triangleA(0.0f, 0.0f);
     Point triangleB(0.0f, 3.0f);
     Point triangleC(2.0f, 0.0f);
     Point point(1.0f, 1.0f);
-
-    std::cout << "Triangle A " << triangleA << std::endl;
-    std::cout << "Triangle B " << triangleB << std::endl;
-    std::cout << "Triangle C " << triangleC << std::endl;
-    std::cout << "Point " << point << std::endl;
+    
+    std::cout << "Triangle A: " << triangleA << std::endl;
+    std::cout << "Triangle B: " << triangleB << std::endl;
+    std::cout << "Triangle C: " << triangleC << std::endl;
+    printTitle("POINT  INSIDE  TRIANGLE");
+    std::cout << "Point: " << point << std::endl;
 
     if (bsp(triangleA, triangleB, triangleC, point)) {
-        std::cout << BLUE << "Point is inside the triangle." << RESET << std::endl;
+        std::cout << GREEN << "Point is inside the triangle." << RESET << std::endl;
     } else {
         std::cout << RED << "Point is outside the triangle." << RESET << std::endl;
     }
 
-    printTitle("---POINT  OUTSIDE  TRIANGLE---");
+    printTitle("POINT  OUTSIDE  TRIANGLE");
     Point outsidePoint(3.0f, 3.0f);
-    std::cout << "Outside Point " << outsidePoint << std::endl;
+    std::cout << "Outside Point: " << outsidePoint << std::endl;
     if (bsp(triangleA, triangleB, triangleC, outsidePoint)) {
-        std::cout << BLUE << "Outside Point is inside the triangle." << RESET << std::endl;
+        std::cout << GREEN << "Outside Point is inside the triangle." << RESET << std::endl;
     } else {
         std::cout << RED << "Outside Point is outside the triangle." << RESET << std::endl;
     }
 
-    printTitle("---POINT  ON  TRIANGLE  EDGE---");
+    printTitle("POINT  ON  TRIANGLE  EDGE");
     Point edgePoint(1.0f, 0.0f);
-    std::cout << "Edge Point " << edgePoint << std::endl;
+    std::cout << "Edge Point: " << edgePoint << std::endl;
     if (bsp(triangleA, triangleB, triangleC, edgePoint)) {  
-        std::cout << BLUE << "Edge Point is inside the triangle." << RESET << std::endl;
+        std::cout << GREEN << "Edge Point is inside the triangle." << RESET << std::endl;
     } else {
         std::cout << RED << "Edge Point is outside the triangle." << RESET << std::endl;
     }
