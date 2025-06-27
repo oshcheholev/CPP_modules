@@ -19,9 +19,10 @@ WrongCat& WrongCat::operator=(const WrongCat& other) {
 	}
 	return *this;
 }  // Assignment operator
-// void WrongCat::makeSound() const {
-// 	std::cout << MAGENTA << " 😺  Meow! Meow!  😺" << RESET << std::endl;
-// }  // Override makeSound
+
+void WrongCat::makeSound() const {
+	std::cout << MAGENTA << " 😺  Meow! Meow!  😺" << RESET << std::endl;
+}  // Override makeSound
 
 std::ostream& operator<<(std::ostream& os, const WrongCat& WrongCat) {
 	os << MAGENTA << "WrongCat type: " << RESET << WrongCat.getType();
