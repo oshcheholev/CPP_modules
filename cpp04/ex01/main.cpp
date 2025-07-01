@@ -32,66 +32,56 @@ int main() {
 		delete animals[i];
 	}
 
-	const Animal* meta = new Animal();
-	const Animal* j = new Dog();
-	const Animal* i = new Cat();
-	std::cout << j->getType() << " " << std::endl;
-	std::cout << i->getType() << " " << std::endl;
-	i->makeSound(); //will output the cat sound!
-	j->makeSound();
-	meta->makeSound();
-
-	delete meta;
-	delete j;
-	delete i;
-
-	printTitle("TEST OF WRONG ANIMALS");
-	const WrongAnimal* wrongmeta = new WrongAnimal();
-	const WrongAnimal* wrongi = new WrongCat();
-	std::cout << wrongi->getType() << " " << std::endl;
-	wrongi->makeSound(); //will output the cat sound!
-	wrongmeta->makeSound();
-
-	delete wrongmeta;
-	delete wrongi;
-
-	printTitle("ANIMAL  CLASS  TEST");
-	Animal* animal = new Animal();
-	std::cout << *animal << std::endl;
-	animal->makeSound();
-	delete animal;
 	
 	printTitle("CAT  CLASS  TEST");
 	Cat* cat = new Cat();
 	std::cout << *cat << std::endl;
 	cat->makeSound();
-	cat->setIdeaToBrain(0, "I want to chase a mouse!");
+	cat->setIdeaToBrain(0, "I want to rule the world!");
 	cat->getIdeaFromBrain(0);
 	cat->setIdeaToBrain(1, "I want to sleep on the couch!");
 	cat->getIdeaFromBrain(1);
 	cat->getIdeaFromBrain(2); 
-	cat->getIdeaFromBrain(100); 
-
+	cat->getIdeaFromBrain(100);
+	cat->getBrain()->setIdea(99, "I want to chase mice!");
+//	std::cout << "Cat's brain: " << *cat->getBrain() << std::endl;
+	printTitle("CAT COPY TEST");
+	Cat* catCopy = new Cat(*cat);
+	catCopy->setIdeaToBrain(0, "I want to eat Whiskas!");
+	catCopy->setIdeaToBrain(1, "I want to catch a laser pointer!");
+	std::cout << "Original Cat's brain: " << *cat->getBrain() << std::endl;
+	// copy
+	std::cout << "Copy of Cat's brain: " << *catCopy->getBrain() << std::endl;
+	catCopy->getIdeaFromBrain(0);
+	catCopy->getIdeaFromBrain(1);
+	
 	delete cat;
+	delete catCopy;
 
 	printTitle("DOG  CLASS  TEST");
 	Dog* dog = new Dog();
 	std::cout << *dog << std::endl;
 	dog->makeSound();
+	dog->setIdeaToBrain(0, "I want to fetch the ball!");
+	dog->getIdeaFromBrain(0);
+	dog->setIdeaToBrain(1, "I want to bark at the mailman!");
+	dog->getIdeaFromBrain(1);
+	dog->getIdeaFromBrain(2);
+	dog->getIdeaFromBrain(100);
+	dog->getBrain()->setIdea(99, "I want to dig a hole in the yard!");
+//	std::cout << "Dog's brain: " << *dog->getBrain() << std::endl;		
+	printTitle("DOG COPY TEST");
+	Dog* dogCopy = new Dog(*dog);
+	dogCopy->setIdeaToBrain(0, "I want to chase my tail!");
+	dogCopy->setIdeaToBrain(1, "I want to bark at the moon!");
+	std::cout << "Original Dog's brain: " << *dog->getBrain() << std::endl;
+	// copy
+	std::cout << "Copy of Dog's brain: " << *dogCopy->getBrain() << std::endl;
+	dogCopy->getIdeaFromBrain(0);
+	dogCopy->getIdeaFromBrain(1);	
 	delete dog;
+	delete dogCopy;
 
-	printTitle("WRONG ANIMAL CLASS TEST");
-	WrongAnimal* wrongAnimal = new WrongAnimal();
-	std::cout << *wrongAnimal << std::endl;
-	wrongAnimal->makeSound();
-	delete wrongAnimal;
-
-	printTitle("WRONG CAT CLASS TEST");
-	WrongCat* wrongCat = new WrongCat();
-	std::cout << *wrongCat << std::endl;
-	wrongCat->getType();
-	wrongCat->makeSound();
-	delete wrongCat;
 
 	return 0;
 }

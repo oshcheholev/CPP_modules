@@ -5,10 +5,15 @@ RM			= rm -rf
 FLAGS	= -Wall -Wextra -Werror -std=c++98
 MAKEFLAGS	= -j$(nproc) --no-print-directory
 
-NAME		= claptrap
+NAME		= animals
 
 SRCS		= main.cpp \
-			ClapTrap.cpp
+			AAnimal.cpp \
+			Cat.cpp \
+			Dog.cpp \
+			WrongAnimal.cpp \
+			WrongCat.cpp \
+			Brain.cpp
 		
 
 OBJSDIR		= obj

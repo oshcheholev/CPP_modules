@@ -1,12 +1,12 @@
 #include "Cat.hpp"
 #include <iostream>
 
-Cat::Cat() : Animal() {
+Cat::Cat() : AAnimal() {
 	this->_brain = new Brain(); // Initialize Brain
 	this->type = "Cat";
 	std::cout << MAGENTA << "New Cat was born!" << RESET << std::endl;
 }  // Constructor
-Cat::Cat(const Cat& other) : Animal(other) {
+Cat::Cat(const Cat& other) : AAnimal(other) {
 	this->_brain = new Brain(*other._brain); // Deep copy of Brain
 	this->type = other.type;
 	std::cout << MAGENTA << "Cat " << other.type 

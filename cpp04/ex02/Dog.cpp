@@ -1,12 +1,12 @@
 #include "Dog.hpp"
 #include <iostream>
 
-Dog::Dog() : Animal() {
+Dog::Dog() : AAnimal() {
 	this->_brain = new Brain(); // Initialize Brain
 	this->type = "Dog";
 	std::cout << MAGENTA << "New Dog was born!" << RESET << std::endl;
 }  // Constructor
-Dog::Dog(const Dog& other) : Animal(other) {
+Dog::Dog(const Dog& other) : AAnimal(other) {
 	this->_brain = new Brain(*other._brain); // Deep copy of Brain
 	this->type = other.type;
 	std::cout << MAGENTA << "Dog " << other.type 
