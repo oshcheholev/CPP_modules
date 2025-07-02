@@ -44,7 +44,12 @@ Character& Character::operator=(const Character& other) {
 
 
 Character::~Character() {
-	// Virtual destructor for proper cleanup of derived classes
+	// Clean up all remaining materias in inventory
+	for (int i = 0; i < _inventorySize; ++i) {
+		if (_inventory[i]) {
+			delete _inventory[i];
+		}
+	}
 }
 std::string const & Character::getName() const {
 	return _name;
@@ -52,8 +57,10 @@ std::string const & Character::getName() const {
 void Character::equip(AMateria* m) {
 	if (_inventorySize < 4 && m) {
 		_inventory[_inventorySize++] = m;
-		std::cout << "Equipped " << m->getType() << " to " << _name << std::endl;
-		
+		std::cout << "Equipped " << m->getType() << " to " << _name << " (inventory size: " << _inventorySize << ")" << std::endl;
+	} else if (m) {
+		std::cout << "Inventory full, cannot equip " << m->getType() << std::endl;
+		delete m; // Clean up the materia if inventory is full
 	}
 }
 void Character::unequip(int idx) {
