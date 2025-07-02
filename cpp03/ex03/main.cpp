@@ -7,13 +7,11 @@ int main() {
 	
 	std::cout << "===Constructors===" << std::endl;
 	DiamondTrap diamond1("Luke Skywalker");
-//	diamond1.attack("Dart Wader");
 	DiamondTrap diamond2("Leia Organa");
-//	diamond2.attack("Emperor Palpatine");
-	DiamondTrap diamond3 = diamond1; // Using copy constructor
-	diamond3.setName("Han Solo"); // Set a different name for the copy
+	DiamondTrap diamond3 = diamond1;
+	diamond3.setName("Han Solo");
 	std::cout << std::endl;
-	std::cout << "===DiamondTrap Instances===" << std::endl;
+	std::cout << "===DiamondTraps===" << std::endl;
 	std::cout << diamond1 << std::endl;
 	std::cout << diamond2 << std::endl;
 	std::cout << diamond3 << std::endl;
