@@ -39,7 +39,7 @@ MateriaSource& MateriaSource::operator=(const MateriaSource& other) {
 }
 void MateriaSource::learnMateria(AMateria* materia) {
 	if (materia && _materiaCount < 4) {
-		_materia[_materiaCount++] = materia->clone();
+		_materia[_materiaCount++] = materia;  //->clone();
 		std::cout << "Learned materia of type: " << materia->getType() << std::endl;
 	} else {
 		std::cerr << "Cannot learn more materia or null materia." << std::endl;
@@ -48,10 +48,10 @@ void MateriaSource::learnMateria(AMateria* materia) {
 AMateria* MateriaSource::createMateria(std::string const & type) {
 	for (int i = 0; i < _materiaCount; ++i) {
 		if (_materia[i] && _materia[i]->getType() == type) {
-			std::cout << "Creating materia of type: " << type << std::endl;
+			std::cout << "Created materia of type: " << type << std::endl;
 			return _materia[i]->clone();
 		}
 	}
 	std::cerr << "Materia of type " << type << " not found." << std::endl;
-	return NULL; // Return null if type not found
+	return NULL;
 }
