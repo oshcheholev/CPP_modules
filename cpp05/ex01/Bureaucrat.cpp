@@ -72,15 +72,17 @@ void Bureaucrat::signForm(Form& form) const{
 		std::cout << BLUE << _name << " cannot sign " 
 		          << form.getName() << " because it is already signed." 
 		          << RESET << std::endl;
-	} else {
-		try {
-			form.beSigned(*this);
+	}
+	else {
+		form.beSigned(*this);
+		if (form.isSigned()) {
 			std::cout << BLUE << _name << " signed form " 
-			          << form.getName() << RESET << std::endl;
-		} catch (const std::exception& e) {
+					<< form.getName() << RESET << std::endl;
+		}
+		else {
 			std::cout << RED << _name << " could not sign form " 
-			          << form.getName() << " because: " 
-			          << e.what() << RESET << std::endl;
+					<< form.getName() << " because it's level is too high." 
+					<< RESET << std::endl;
 		}
 	}
 }

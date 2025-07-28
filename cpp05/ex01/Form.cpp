@@ -53,11 +53,13 @@ bool Form::isSigned() const {
 }
 void Form::beSigned(const Bureaucrat& bureaucrat) {
 	if (bureaucrat.getGrade() > _signGrade)
-		throw GradeTooHighException();
-	_isSigned = true;
-	std::cout << BLUE << "Form " << _name 
-			  << " has been signed by " << bureaucrat.getName() 
-			  << " with grade " << bureaucrat.getGrade() << RESET << std::endl;
+		std::cerr << RED << "Bureaucrat grade too low to sign form." << RESET << std::endl;
+	else {
+		_isSigned = true;
+		std::cout << BLUE << "Form " << _name 
+				  << " has been signed by " << bureaucrat.getName() 
+				  << " with grade " << bureaucrat.getGrade() << RESET << std::endl;
+	}
 }
 
 const char* Form::GradeTooHighException::what() const throw() {

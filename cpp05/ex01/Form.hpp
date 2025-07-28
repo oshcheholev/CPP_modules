@@ -3,6 +3,7 @@
 
 #include <string>
 #include "Bureaucrat.hpp"
+#include <iostream>
 
 class Form {
 private:
@@ -21,6 +22,8 @@ public:
 	int getExecuteGrade() const;
 	bool isSigned() const;
 	void beSigned(const Bureaucrat& bureaucrat) ;
+
+
 	class GradeTooHighException : public std::exception {
 	public:
 		const char* what() const throw();
@@ -29,7 +32,6 @@ public:
 	public:
 		const char* what() const throw();
 	};
-
 };
 std::ostream& operator<<(std::ostream& os, const Form& form);
 
