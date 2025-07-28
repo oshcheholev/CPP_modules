@@ -6,6 +6,7 @@ Cat::Cat() {
 	std::cout << MAGENTA << "New Cat was born!" << RESET << std::endl;
 }  // Constructor
 Cat::Cat(const Cat& other) : Animal(other) {
+	this->type = other.type;
 	std::cout << MAGENTA << "Cat " << other.type 
 	<< " is copied." << RESET << std::endl;
 }  // Copy constructor

@@ -20,7 +20,7 @@ Dog& Dog::operator=(const Dog& other) {
 	return *this;
 }  // Assignment operator
 void Dog::makeSound() const {
-	std::cout << CYAN << "🐶   Woof! Woof!   🐶" << RESET << std::endl;
+	std::cout << CYAN << "🐶  Woof! Woof!  🐶" << RESET << std::endl;
 }  // Override makeSound
 
 std::ostream& operator<<(std::ostream& os, const Dog& Dog) {
