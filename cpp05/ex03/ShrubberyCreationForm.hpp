@@ -1,3 +1,6 @@
+#ifndef SHRUBBERYCREATIONFORM_HPP
+#define SHRUBBERYCREATIONFORM_HPP
+
 #include "AForm.hpp"
 #include <string>
 
@@ -19,3 +22,5 @@ public:
 		}
 	};
 };
+
+#endif // SHRUBBERYCREATIONFORM_HPP

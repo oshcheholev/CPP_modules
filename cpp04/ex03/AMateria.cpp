@@ -1,4 +1,5 @@
 #include "AMateria.hpp"
+#include <iostream>
 
 AMateria::AMateria() : type("Unknown") {
 	std::cout << "AMateria created with type: " << type << std::endl;
@@ -7,7 +8,7 @@ AMateria::AMateria(const std::string& type) : type(type) {
 	std::cout << "AMateria created with type: " << type << std::endl;
 }
 AMateria::~AMateria() {
-	std::cout << "AMateria of type " << type << " destroyed." << std::endl;
+	std::cout << "AMateria of type " << type << " destroyed..." << std::endl;
 }
 AMateria::AMateria(const AMateria& other) : type(other.type) {
 	std::cout << "AMateria copied with type: " << type << std::endl;

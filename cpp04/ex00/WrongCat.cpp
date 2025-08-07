@@ -21,7 +21,7 @@ WrongCat& WrongCat::operator=(const WrongCat& other) {
 }  // Assignment operator
 
 void WrongCat::makeSound() const {
-	std::cout << MAGENTA << " 😺  Meow! Meow!  😺" << RESET << std::endl;
+	std::cout << MAGENTA << "😺  Meow! Meow!  😺" << RESET << std::endl;
 }  // Override makeSound
 
 std::ostream& operator<<(std::ostream& os, const WrongCat& WrongCat) {

@@ -1,4 +1,5 @@
 #include "MateriaSource.hpp"
+#include <iostream>
 
 MateriaSource::MateriaSource() : _materiaCount(0) {
 	std::cout << "MateriaSource created." << std::endl;
@@ -19,6 +20,9 @@ MateriaSource::MateriaSource(const MateriaSource& other) : _materiaCount(other._
 MateriaSource::~MateriaSource() {
 	std::cout << "MateriaSource destroyed." << std::endl;
 	for (int i = 0; i < _materiaCount; ++i) {
+		if (_materia[i]) {
+			std::cout << RED << "Deleting materia of type: " << _materia[i]->getType() << RESET << std::endl;
+		}
 		delete _materia[i]; // Clean up materia
 		_materia[i] = NULL;
 	}

@@ -3,7 +3,6 @@
 CPP			= c++
 RM			= rm -rf
 FLAGS	= -Wall -Wextra -Werror -std=c++98 -g
-MAKEFLAGS	= -j$(nproc) --no-print-directory
 
 NAME		= scavtrap
 

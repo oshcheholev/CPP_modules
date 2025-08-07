@@ -3,7 +3,6 @@
 
 #include "IMateriaSource.hpp"
 #include "AMateria.hpp"
-#include <iostream>
 class MateriaSource : public IMateriaSource {
 private:
 	AMateria* _materia[4]; // Array to hold learned materia
@@ -16,5 +15,5 @@ public:
 	void learnMateria(AMateria* materia);
 	AMateria* createMateria(std::string const & type);
 };
-
+std::ostream& operator<<(std::ostream& os, const MateriaSource& source);
 #endif // MATERIASOURCE_HPP

@@ -16,7 +16,6 @@ SRCS		= main.cpp \
 
 OBJSDIR		= obj
 OBJS		= $(addprefix $(OBJSDIR)/, $(SRCS:.cpp=.o))
-DEPS		= $(addprefix $(OBJSDIR)/, $(SRCS:.cpp=.d))
 
 #------------------------------------------------------------------------------#
 
@@ -39,7 +38,5 @@ fclean	:
 re		:
 		$(RM) $(OBJSDIR) $(NAME)
 		$(MAKE) all
-
--include $(DEPS)
 
 .PHONY	: all clean fclean re

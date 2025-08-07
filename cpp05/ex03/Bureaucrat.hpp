@@ -1,5 +1,6 @@
 #ifndef BUREAUCRAT_HPP
 #define BUREAUCRAT_HPP
+
 #include <string>
 
 #define GREEN "\033[32m"

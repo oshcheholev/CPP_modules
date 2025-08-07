@@ -7,7 +7,7 @@ Ice::Ice(const Ice& other) : AMateria(other) {
 	std::cout << "Ice materia copied." << std::endl;
 }
 Ice::~Ice() {
-	std::cout << "Ice materia destroyed." << std::endl;
+	std::cout << "Ice materia destroyed from Ice destructor." << std::endl;
 }
 Ice& Ice::operator=(const Ice& other) {
 	if (this != &other) {
@@ -17,7 +17,7 @@ Ice& Ice::operator=(const Ice& other) {
 	return *this;
 }
 void Ice::use(ICharacter& target) const {
-	std::cout << "* shoots an ice bolt at " << target.getName() << " *" << std::endl;
+	std::cout << BLUE << "* shoots an ice bolt at " << target.getName() << " *" << RESET << std::endl;
 }
 AMateria* Ice::clone() const {
 	std::cout << "Cloning Ice materia." << std::endl;

@@ -1,3 +1,6 @@
+#ifndef PRESIDENTIALPARDONFORM_HPP
+#define PRESIDENTIALPARDONFORM_HPP
+
 #include "AForm.hpp"
 #include <string>
 
@@ -19,3 +22,7 @@ public:
 		}
 	};
 };
+
+std::ostream& operator<<(std::ostream& os, const PresidentialPardonForm& form);
+
+#endif // PRESIDENTIALPARDONFORM_HPP

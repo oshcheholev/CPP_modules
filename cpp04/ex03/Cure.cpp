@@ -9,7 +9,7 @@ Cure::Cure(const Cure& other) : AMateria(other) {
 	std::cout << "Cure materia copied." << std::endl;
 }
 Cure::~Cure() {
-	std::cout << "Cure materia destroyed." << std::endl;
+	std::cout << "Cure materia destroyed from Cure destructor." << std::endl;
 }
 Cure& Cure::operator=(const Cure& other) {
 	if (this != &other) {
@@ -19,7 +19,7 @@ Cure& Cure::operator=(const Cure& other) {
 	return *this;
 }
 void Cure::use(ICharacter& target) const {
-	std::cout << "* heals " << target.getName() << "’s wounds *" << std::endl;
+	std::cout << YELLOW <<"* heals " << target.getName() << "’s wounds *" << RESET << std::endl;
 }
 AMateria* Cure::clone() const {
 	std::cout << "Cloning Cure materia." << std::endl;

@@ -11,7 +11,7 @@ SRCS		= main.cpp \
 			AForm.cpp \
 			ShrubberyCreationForm.cpp \
 			RobotomyRequestForm.cpp \
-		
+			PresidentialPardonForm.cpp \
 		
 
 OBJSDIR		= obj

@@ -5,6 +5,7 @@
 #include "AForm.hpp"
 #include "ShrubberyCreationForm.hpp"
 #include "RobotomyRequestForm.hpp"
+#include "PresidentialPardonForm.hpp"
 
 
 
@@ -15,9 +16,10 @@ void printTitle(const std::string& title) {
 
 int main() {
 
-	printTitle("Shrubbery Creation Form Test");
+
+	printTitle("Shrubbery Creation Form Test with Bureaucrat too low to execute");
 	try {
-		Bureaucrat bureaucrat("Alice", 50);
+		Bureaucrat bureaucrat("Eduardo", 160);
 		std::cout << bureaucrat << std::endl;
 		ShrubberyCreationForm form("Garden");
 		std::cout << form << std::endl;
@@ -28,85 +30,67 @@ int main() {
 	} catch (std::exception &e) {
 		std::cerr << RED << "Exception: " << e.what() << RESET << std::endl;
 	}
-	printTitle("Robotomy Request Form Test");
+
+	printTitle("Shrubbery Creation Form Test with normal Bureaucrat");
 	try {
-		Bureaucrat bureaucrat("Bob", 30);
+		Bureaucrat bureaucrat("Eduardo", 150);
 		std::cout << bureaucrat << std::endl;
-		RobotomyRequestForm form("Robot");
+		ShrubberyCreationForm form("Garden");
 		std::cout << form << std::endl;
 		bureaucrat.signForm(form);
+		std::cout << "Is form signed? " << (form.isSigned() ? "Yes" : "No") << std::endl; // Check if form is signed
+		bureaucrat.setGrade(145); // Set grade to sign
+		bureaucrat.signForm(form);
+		std::cout << "Is form signed? " << (form.isSigned() ? "Yes" : "No") << std::endl; // Check if form is signed
+		std::cout << "Executing form..." << std::endl;
 		std::cout << form << std::endl;
 		form.execute(bureaucrat);
-		std::cout << "Robotomy request executed successfully." << std::endl;
+		bureaucrat.setGrade(137); // Set grade to allow execution
+		form.execute(bureaucrat);
 	} catch (std::exception &e) {
 		std::cerr << RED << "Exception: " << e.what() << RESET << std::endl;
 	}
 
-	// try {
-	// 	Bureaucrat bureaucrat("Druscilla", 50);
-	// 	std::cout << bureaucrat << std::endl;
-	// } catch (std::exception &e) {
-	// 	std::cerr << RED << "Exception: " << e.what() << RESET << std::endl;
-	// }
-	// printTitle("Invalid Bureaucrat operations");
-	// try {
-	// 	Bureaucrat bureaucrat("Druscilla", 0); // Invalid grade
-	// 	std::cout << bureaucrat << std::endl;
-	// } catch (std::exception &e) {
-	// 	std::cerr << RED << "Exception: " << e.what() << RESET << std::endl;
-	// }
-	// printTitle("Valid Form operations");
-	// try {
-	// 	Bureaucrat bureaucrat("Druscilla", 50);
-	// 	std::cout << form << std::endl;
-	// 	bureaucrat.signForm(form);
-	// 	std::cout << form << std::endl;
-	// } catch (std::exception &e) {
-	// 	std::cerr << RED << "Exception: " << e.what() << RESET << std::endl;
-	// }
-	// printTitle("Invalid Form operations");
-	// try {
-	// 	Bureaucrat bureaucrat("Druscilla", 50);
-	// 	Form form("Form2", 20, 20); // Form with high sign grade
-	// 	std::cout << form << std::endl;
-	// 	bureaucrat.signForm(form); // Should throw an exception
-	// 	std::cout << form << std::endl;
-	// } catch (std::exception &e) {
-	// 	std::cerr << RED << "Exception: " << e.what() << RESET << std::endl;
-	// }
-	// printTitle("Form with low execute grade");
-	// try {
-	// 	Bureaucrat bureaucrat("Druscilla", 50);
-	// 	Form form("Form3", 50, 200); // Form with low execute grade
-	// 	std::cout << form << std::endl;
-	// 	bureaucrat.signForm(form); // Should throw an exception
-	// 	std::cout << form << std::endl;
-	// } catch (std::exception &e) {
-	// 	std::cerr << RED << "Exception: " << e.what() << RESET << std::endl;
-	// }
-	// printTitle("Form with high execute grade");
-	// try {
-	// 	Bureaucrat bureaucrat("Druscilla", 50);
-	// 	Form form("Form4", 50, 0); // Form with high execute grade
-	// 	std::cout << form << std::endl;
-	// 	bureaucrat.signForm(form); // Should throw an exception
-	// 	std::cout << form << std::endl;
-	// } catch (std::exception &e) {
-	// 	std::cerr << RED << "Exception: " << e.what() << RESET << std::endl;
-	// }
+	printTitle("Robotomy Request Form Test");
+	try {
+		Bureaucrat bureaucrat("Felix", 100);
+		std::cout << bureaucrat << std::endl;
+		RobotomyRequestForm form("Bender");
+		std::cout << form << std::endl;
+		bureaucrat.signForm(form);
+		std::cout << "Is form signed? " << (form.isSigned() ? "Yes" : "No") << std::endl; // Check if form is signed
+		bureaucrat.setGrade(50); // Set grade to sign
+		bureaucrat.signForm(form);
+		std::cout << "Is form signed? " << (form.isSigned() ? "Yes" : "No") << std::endl; // Check if form is signed
 
-	// printTitle("Signing already signed form	");
-	// try {
-	// 	Bureaucrat bureaucrat("Druscilla", 50);
-	// 	Form form("Form5", 50, 50);
-	// 	std::cout << form << std::endl;
-	// 	bureaucrat.signForm(form);
-	// 	std::cout << form << std::endl;
-	// 	bureaucrat.signForm(form); 
-	// 	std::cout << form << std::endl;
-	// } catch (std::exception &e) {
-	// 	std::cerr << RED << "Exception: " << e.what() << RESET << std::endl;
-	// }
+		std::cout << form << std::endl;
+		form.execute(bureaucrat);
+		bureaucrat.setGrade(30); // Set grade to allow execution
+		form.execute(bureaucrat);
+	} catch (std::exception &e) {
+		std::cerr << RED << "Exception: " << e.what() << RESET << std::endl;
+	}
+
+	printTitle("Presidential Pardon Form Test");
+	try {
+		Bureaucrat bureaucrat("Drucilla", 40);
+		std::cout << bureaucrat << std::endl;
+		PresidentialPardonForm form("John Doe");
+		std::cout << form << std::endl;
+		bureaucrat.signForm(form);
+		bureaucrat.setGrade(10); // Set grade to allow execution
+		bureaucrat.signForm(form);
+		std::cout << form.isSigned() << std::endl; // Check if form is signed
+		std::cout << form << std::endl;
+		std::cout << "Executing form..." << std::endl;
+		form.execute(bureaucrat);
+		bureaucrat.setGrade(4);
+		std::cout << form << std::endl;
+		form.execute(bureaucrat);
+	} catch (std::exception &e) {
+		std::cerr << RED << "Exception: " << e.what() << RESET << std::endl;
+	}
+
 
 
 	return 0;

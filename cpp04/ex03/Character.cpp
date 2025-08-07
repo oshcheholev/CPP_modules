@@ -45,7 +45,7 @@ Character& Character::operator=(const Character& other) {
 
 Character::~Character() {
 	// Clean up all remaining materias in inventory
-	for (int i = 0; i < _inventorySize; ++i) {
+	for (int i = 0; i < 4; ++i) {
 		if (_inventory[i]) {
 			delete _inventory[i];
 		}
@@ -54,30 +54,41 @@ Character::~Character() {
 std::string const & Character::getName() const {
 	return _name;
 }
-void Character::equip(AMateria* m) {
-	if (_inventorySize < 4 && m) {
-		_inventory[_inventorySize++] = m;
-		std::cout << "Equipped " << m->getType() << " to " << _name << " (inventory size: " << _inventorySize << ")" << std::endl;
-	} else if (m) {
-		std::cout << "Inventory full, cannot equip " << m->getType() << std::endl;
-		delete m; // Clean up the materia if inventory is full
+void Character::equip(AMateria* m) 
+{
+	if (!m) return;
+	
+	for (int i = 0; i < 4; ++i) {
+		if (!_inventory[i]) { // Find an empty slot
+			_inventory[i] = m; // Equip the materia
+			_inventorySize++;
+			std::cout << "Equipped " << m->getType() << " to " << _name << " at index " << i << std::endl;
+			return;
+		}
 	}
+	
+	// If we reach here, inventory is full
+	std::string type = m->getType(); // Store type before deleting
+	std::cout << "Inventory full, cannot equip " << type << std::endl;
+	delete m; // Clean up the materia if inventory is full
 }
 void Character::unequip(int idx) {
 	if (idx >= 0 && idx < 4 && _inventory[idx]) {
-		delete _inventory[idx]; // Clean up the materia
-		_inventory[idx] = NULL;
-		// Shift remaining materia to fill the gap
-		for (int i = idx; i < _inventorySize - 1; ++i) {
-			_inventory[i] = _inventory[i + 1];
-		}
-		_inventory[--_inventorySize] = NULL; // Decrease size and nullify last element
+		_inventory[idx] = NULL; // Remove from inventory without deleting
+		_inventorySize--;
 	}
 }
 void Character::use(int idx, ICharacter& target) {
-	if (idx >= 0 && idx < _inventorySize && _inventory[idx]) {
+	if (idx >= 0 && idx < 4 && _inventory[idx]) {
 		_inventory[idx]->use(target);
 	} else {
 		std::cout << "Invalid index or no materia equipped at index " << idx << std::endl;
 	}
+}
+
+AMateria* Character::getMateria(int idx) const {
+	if (idx >= 0 && idx < 4) {
+		return _inventory[idx];
+	}
+	return NULL;
 }

@@ -66,7 +66,7 @@ void ShrubberyCreationForm::execute(const Bureaucrat& bureaucrat) const {
 		file << "      /~~   ~~\\\n";
 		file.close();
 
-		std::cout << BLUE << "Shrubbery created at " << _target 
+		std::cout << BLUE << "Shrubbery executed at " << _target 
 				<< "_shrubbery by " << bureaucrat.getName() 
 				<< " with grade " << bureaucrat.getGrade() << RESET << std::endl;
 	}

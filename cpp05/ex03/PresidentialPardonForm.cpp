@@ -43,8 +43,8 @@ const std::string& PresidentialPardonForm::getTarget() const {
 
 void PresidentialPardonForm::execute(const Bureaucrat& bureaucrat) const {
 	if (!isSigned())
-		throw AForm::GradeTooLowException();
-	if (bureaucrat.getGrade() > getExecuteGrade())
+		std::cerr << RED << "AForm is not signed!" << RESET << std::endl;
+	else if (bureaucrat.getGrade() > getExecuteGrade())
 		std::cerr << RED << "Bureaucrat grade too low to execute form." << RESET << std::endl;
 	else {
 		std::cout << "Presidential pardon for " << _target << " is being processed." << std::endl;
@@ -56,4 +56,12 @@ void PresidentialPardonForm::execute(const Bureaucrat& bureaucrat) const {
 			throw PresidentialPardonException();
 		std::cout << GREEN << "Presidential pardon executed successfully." << RESET << std::endl;
 	}
+}
+
+std::ostream& operator<<(std::ostream& os, const PresidentialPardonForm& form) {
+	os << "PresidentialPardonForm: " << form.getTarget() 
+	   << ", Sign Grade: " << form.getSignGrade() 
+	   << ", Execute Grade: " << form.getExecuteGrade() 
+	   << ", Signed: " << (form.isSigned() ? "Yes" : "No");
+	return os;
 }

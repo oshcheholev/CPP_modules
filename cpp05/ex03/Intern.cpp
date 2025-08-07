@@ -53,29 +53,20 @@ AForm* Intern::makeForm(const std::string& formName, const std::string& target) 
 	AForm* form = NULL;
 	std::string lowerFormName = nameToLower(formName);
 
-	const std::string formTypes[] = {
+const std::string formTypes[3] = {
 		"shrubbery creation",
 		"robotomy request",
 		"presidential pardon"
 	};
-
-	
-
-	
+AForm* (*functionPointers[3])(const std::string&) = {
+		createShrubberyCreationForm,
+		createRobotomyRequestForm,
+		createPresidentialPardonForm
+	};
 	
 	for (int i = 0; i < 3; ++i) {
 		if (lowerFormName == formTypes[i]) {
-			switch (i) {
-				case 0:
-					form = createShrubberyCreationForm(target);
-					break;
-				case 1:
-					form = createRobotomyRequestForm(target);
-					break;
-				case 2:
-					form = createPresidentialPardonForm(target);
-					break;
-			}
+			form = functionPointers[i](target);
 			break;
 		}
 	}

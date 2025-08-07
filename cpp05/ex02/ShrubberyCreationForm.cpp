@@ -44,28 +44,30 @@ const std::string& ShrubberyCreationForm::getTarget() const {
 
 void ShrubberyCreationForm::execute(const Bureaucrat& bureaucrat) const {
 	if (!isSigned())
-		throw AForm::GradeTooLowException();
+		std::cerr << RED << "Form is not signed!" << RESET << std::endl;
 	if (bureaucrat.getGrade() > getExecuteGrade())
-		throw AForm::GradeTooLowException();
-	std::string filename = _target + "_shrubbery";
-	std::ofstream file(filename.c_str());
-	if (!file.is_open())
-		throw FileCreationException();
+		std::cerr << RED << "Grade is too low to execute form!" << RESET << std::endl;
+	else {
+		std::string filename = _target + "_shrubbery";
+		std::ofstream file(filename.c_str());
+		if (!file.is_open())
+			throw FileCreationException();
 
-	file << "       _~_~_~_\n";
-	file << "    /~~       ~~\\\n";
-	file << "   /~~         ~~\\\n";
-	file << "  |~~           ~~|\n";
-	file << "   \\~~         ~~/\n";
-	file << "    \\~~_______~~/\n";
-	file << "         |_|\n";
-	file << "         |_|\n";
-	file << "         |_|\n";
-	file << "         |_|\n";
-	file << "      /~~   ~~\\\n";
-	file.close();
+		file << "       _~_~_~_\n";
+		file << "    /~~       ~~\\\n";
+		file << "   /~~         ~~\\\n";
+		file << "  |~~           ~~|\n";
+		file << "   \\~~         ~~/\n";
+		file << "    \\~~_______~~/\n";
+		file << "         |_|\n";
+		file << "         |_|\n";
+		file << "         |_|\n";
+		file << "         |_|\n";
+		file << "      /~~   ~~\\\n";
+		file.close();
 
-	std::cout << BLUE << "Shrubbery created at " << _target 
-			  << "_shrubbery by " << bureaucrat.getName() 
-			  << " with grade " << bureaucrat.getGrade() << RESET << std::endl;
+		std::cout << BLUE << "Shrubbery created at " << _target 
+				<< "_shrubbery by " << bureaucrat.getName() 
+				<< " with grade " << bureaucrat.getGrade() << RESET << std::endl;
+	}
 }

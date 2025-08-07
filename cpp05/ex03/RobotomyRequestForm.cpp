@@ -60,7 +60,6 @@ void RobotomyRequestForm::execute(const Bureaucrat& bureaucrat) const {
 		if (rand() % 2) {
 			std::cout << GREEN << _target << " has been robotomized successfully!" << RESET << std::endl;
 		} else {
-			throw RobotomyFailureException();
 			std::cout << RED << "Robotomy request for " << _target << " failed." << RESET << std::endl;
 		}
 		std::cout << BLUE << "Robotomy request for " << _target << " executed by " 

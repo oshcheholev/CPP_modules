@@ -3,7 +3,7 @@
 #include <string>
 
 Brain::Brain() {
-	std::cout << "Default Brain born with it's owner!" << std::endl;
+	std::cout << "The Brain born with it's owner!" << std::endl;
 	for (int i = 0; i < 100; ++i) {
 		ideas[i] = "Just idea";
 	}
