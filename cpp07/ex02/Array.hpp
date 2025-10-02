@@ -12,17 +12,17 @@ public:
 	Array();
 	Array(std::size_t size);
 
-	~Array() {}
+	~Array();
 
-	Array(const Array& other) {}
+	Array(const Array& other);
 
-	Array& operator=(const Array& other) {}
+	Array& operator=(const Array& other);
 
-	T& operator[](std::size_t index) {}
+	T& operator[](std::size_t index);
 
-	const T& operator[](std::size_t index) const {}
+	const T& operator[](std::size_t index) const;
 
-	std::size_t size() const {}
+	std::size_t size() const;
 
 };
 

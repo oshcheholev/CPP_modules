@@ -1,5 +1,5 @@
-#include "iter.hpp"
-#include "utils.hpp"
+#include "Iter.cpp"
+#include "utils.cpp"
 
 #include <iostream>
 #include <string>
@@ -22,7 +22,9 @@ void incrementElement(char & element) {
 		element = std::toupper(element);
 }
 
-
+void incrementElement(double& element) {
+	element += 1.0;
+}
 
 int main() {
 	printTitle("Iter Template Function Test");
@@ -40,11 +42,23 @@ int main() {
 	std::cout << "Const array: ";
 	const int constArr[] = { 5, 6, 7, 8, 9 };
 	::iter(constArr, 5, printElement);
-//	::iter(constArr, 5, incrementElement);
+	// ::iter(constArr, 5, incrementElement);
+	// Can't increment const array elements
 
 	std::cout << std::endl;
 
 	printTitle("More Tests with Different Types");
+
+	double doubleArr[] = { 1.11, 2.22, 3.33 };
+	std::cout << "Original doubles: ";
+	::iter(doubleArr, 3, printElement);
+	std::cout << std::endl;
+	::iter(doubleArr, 3, incrementElement);
+	std::cout << "Incremented doubles: ";
+	::iter(doubleArr, 3, printElement);
+	std::cout << std::endl;
+	std::cout << std::endl;
+
 	std::string strArr[] = { "42", "Vienna", "School", "!" };
 	std::cout << "Original Strings: ";
 	::iter(strArr, 4, printElement);
@@ -52,6 +66,7 @@ int main() {
 	std::cout << std::endl;
 	::iter(strArr, 4, incrementElement);
 	::iter(strArr, 4, printElement);
+	std::cout << std::endl;
 	std::cout << std::endl;
 
 	char charArr[] = { 'a', 'b', 'c', 'd' };
@@ -62,12 +77,7 @@ int main() {
 	std::cout << "Incremented (Uppercase) :))) Characters: ";
 	::iter(charArr, 4, printElement);
 	std::cout << std::endl;
+	std::cout << std::endl;
 
-	int *a = new int();
-	std::string *b = new std::string();
-	std::cout << "Dynamic int: " << *a << std::endl;
-	std::cout << "Dynamic string: " << *b << std::endl;
-	delete a;
-	delete b;
 	return 0;
 }

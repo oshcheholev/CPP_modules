@@ -19,7 +19,7 @@ void printTitle(const std::string& title) {
 
 int main(int argc, char **argv) {
     if (argc != 2) {
-        std::cout << "Usage: " << argv[0] << " <literal>" << std::endl;
+        std::cout << YELLOW << "Usage: " << argv[0] << " <literal>" << RESET << std::endl;
         return 1;
     }
     

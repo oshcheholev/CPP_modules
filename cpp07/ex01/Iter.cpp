@@ -1,6 +1,4 @@
-#ifndef ITER_HPP
-#define ITER_HPP
-
+#include "Iter.hpp"
 #include <cstddef>
 
 template <typename T>
@@ -9,6 +7,3 @@ void iter(T* array, size_t length, void (*function)(T&)) {
         function(array[i]);
     }
 }
-
-
-#endif // ITER_HPP

@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <string>
-#include <cstdint>
+
 
 
 
@@ -25,13 +25,13 @@ void printTitle(const std::string& title) {
 int main(void) {
 
     printTitle("Normal Case");
-    Data original = {42, "Hello, World!", 3.14};
+    Data original = {0, "Hello, World!", 3.14};
 
     // original
     std::cout << GREEN << "Original Data:" << RESET << std::endl;
-    std::cout << "ID: " << original.id << std::endl;
-    std::cout << "Name: " << original.name << std::endl;
-    std::cout << "Value: " << original.value << std::endl;
+    std::cout << "INT: " << original.data_int << std::endl;
+    std::cout << "STRING: " << original.data_string << std::endl;
+    std::cout << "FLOAT: " << original.data_float << std::endl;
     std::cout << std::endl;
 
     // Serialize
@@ -42,34 +42,51 @@ int main(void) {
     Data* ptr = Serializer::deserialize(raw);
 
     if (ptr == &original) {
-        std::cout << GREEN << "SUCCESS" << RESET << std::endl;
+        std::cout << GREEN << "SUCCESS! Pointer == Original" << RESET << std::endl;
     } else {
-        std::cout << RED << "FAILURE" << RESET << std::endl;
+        std::cout << RED << "FAILURE! Pointer != Original" << RESET << std::endl;
     }
-
-    std::cout << CYAN << "Deserialize:" << RESET << std::endl;
-    std::cout << "ID: " << ptr->id << std::endl;
-    std::cout << "Name: " << ptr->name << std::endl;
-    std::cout << "Value: " << ptr->value << std::endl;
+    std::cout << "Deserializing" << std::endl;
+    std::cout << CYAN << "Deserialized Data:" << RESET << std::endl;
+    std::cout << "INT: " << ptr->data_int << std::endl;
+    std::cout << "STRING: " << ptr->data_string << std::endl;
+    std::cout << "FLOAT: " << ptr->data_float << std::endl;
     std::cout << std::endl;
 
     printTitle("Pointer Modifying");
-    ptr->id = 5;
-    ptr->name = "Hello World Modified";
-    ptr->value = 42.42;
+    ptr->data_int = 5;
+    ptr->data_string = "Hello World Modified";
+    ptr->data_float = 42.42;
 
     std::cout << CYAN << "Pointer Data:" << RESET << std::endl;
-    std::cout << "ID: " << ptr->id << std::endl;
-    std::cout << "Name: " << ptr->name << std::endl;
-    std::cout << "Value: " << ptr->value << std::endl;
+    std::cout << "INT: " << ptr->data_int << std::endl;
+    std::cout << "STRING: " << ptr->data_string << std::endl;
+    std::cout << "FLOAT: " << ptr->data_float << std::endl;
     std::cout << std::endl;
 
-    std::cout << YELLOW << "Original Data:" << RESET << std::endl;
-    std::cout << "ID: " << original.id << std::endl;
-    std::cout << "Name: " << original.name << std::endl;
-    std::cout << "Value: " << original.value << std::endl;
+    std::cout << YELLOW << "Original Data (should be modified):" << RESET << std::endl;
+    std::cout << "INT: " << original.data_int << std::endl;
+    std::cout << "STRING: " << original.data_string << std::endl;
+    std::cout << "FLOAT: " << original.data_float << std::endl;
     std::cout << std::endl;
 
+    printTitle("Pointer Pointing to New Instance");
+    Data newData = *ptr; // Copy original data to newData
+    ptr = &newData; // Point ptr to newData
+    ptr->data_int = 10;
+    ptr->data_string = "New Data Instance";
+    ptr->data_float = 99.99;
+    std::cout << std::endl;
+    std::cout << CYAN << "Pointer Data (after pointing to new instance):" << RESET << std::endl;
+    std::cout << "INT: " << ptr->data_int << std::endl;
+    std::cout << "STRING: " << ptr->data_string << std::endl;
+    std::cout << "FLOAT: " << ptr->data_float << std::endl;
+    std::cout << std::endl;
+    std::cout << YELLOW << "Original Data (should remain unchanged):" << RESET << std::endl;
+    std::cout << "INT: " << original.data_int << std::endl;
+    std::cout << "STRING: " << original.data_string << std::endl;
+    std::cout << "FLOAT: " << original.data_float << std::endl;
+    std::cout << std::endl;
 
     printTitle("Null Pointer");
     Data* nullPtr = NULL;
@@ -78,18 +95,18 @@ int main(void) {
     
     Data* dNull = Serializer::deserialize(nullRaw);
     if (dNull == NULL) {
-        std::cout << GREEN << "SUCCESS Nullptr" << RESET << std::endl;
+        std::cout << GREEN << "SUCCESS! Nullptr == NULL" << RESET << std::endl;
     } else {
-        std::cout << RED << "FAILURE Nullptr" << RESET << std::endl;
+        std::cout << RED << "FAILURE! Nullptr != NULL" << RESET << std::endl;
     }
     std::cout << std::endl;
 
     printTitle("Zero Value");
     Data* zeroPtr = Serializer::deserialize(0); 
     if (zeroPtr == NULL) {
-        std::cout << GREEN << "SUCCESS Zero" << RESET << std::endl;
+        std::cout << GREEN << "SUCCESS! ZeroPtr == NULL" << RESET << std::endl;
     } else {
-        std::cout << RED << "FAILURE Zero" << RESET << std::endl;
+        std::cout << RED << "FAILURE! ZeroPtr != NULL" << RESET << std::endl;
     }
 
 }

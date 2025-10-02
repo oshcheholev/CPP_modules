@@ -1,4 +1,7 @@
+#ifndef ARRAY_TPP
+#define ARRAY_TPP
 
+#include "Array.hpp"
 #include <iostream>
 #include <string>
 
@@ -10,7 +13,10 @@ Array<T>::Array() {
 
 template <typename T>
 Array<T>::Array(std::size_t size) {
-	if (size == 0) {
+	if (size < 0) {
+		std::cout << "Size cannot be negative" << std::endl;
+	}
+	else if (size == 0) {
 		this->_array = new T[0];
 		this->_size = 0;
 	} else {
@@ -79,4 +85,6 @@ template <typename T>
 std::size_t Array<T>::size() const {
 	return this->_size;
 }
+
+#endif
 

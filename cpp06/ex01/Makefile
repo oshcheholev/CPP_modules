@@ -2,7 +2,7 @@
 
 CPP			= c++
 RM			= rm -rf
-FLAGS	= -Wall -Wextra -Werror -g
+FLAGS	= -Wall -Wextra -Werror -g -std=c++98
 
 NAME		= serialize
 

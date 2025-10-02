@@ -1,5 +1,5 @@
-#include "utils.hpp"
 #include <iostream>
+#include "utils.hpp"
 
 void printTitle(const std::string& title) {
 	std::cout << "\n" << BLUE 

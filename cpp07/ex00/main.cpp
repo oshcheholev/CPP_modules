@@ -1,10 +1,11 @@
-#include "whatever.hpp"
+#include "whatever.cpp"
 #include "utils.hpp"
-
+#include <string>
 #include <iostream>
 
 int main() {
-	printTitle("Test from the Subject");
+
+printTitle("Test from the Subject");
 
 int a = 2;
 int b = 3;
@@ -20,7 +21,7 @@ std::cout << "min( c, d ) = " << ::min( c, d ) << std::endl;
 std::cout << "max( c, d ) = " << ::max( c, d ) << std::endl;
 
 
-printTitle("More tests");
+printTitle("More tests (floats and strings)");
 float e = 1.5f;
 float f = 2.5f;
 std::cout << "before e = " << e << ", f = " << f << std::endl;
@@ -36,8 +37,8 @@ std::cout << "after str1 = " << str1 << ", str2 = "<< str2 << std::endl;
 std::cout << "min( str1, str2 ) = " << ::min(str1, str2) << std::endl;
 std::cout << "max( str1, str2 ) = " << ::max(str1, str2) << std::endl;
 
-int k = 42;
-float l = 3.14f;
+// int k = 42;
+// float l = 3.14f;
 // To show that we cannot swap and compare different types
 // ::swap(k, l);
 // std::cout << "min( k, l ) = " << ::min(k, l) << std::endl;

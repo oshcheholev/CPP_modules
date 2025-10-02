@@ -1,6 +1,7 @@
 #ifndef UTILS_HPP
 #define UTILS_HPP
 
+#include <string>
 
 //COLORS
 #define GREEN "\033[32m"
@@ -19,6 +20,6 @@
 
 #define RESET "\033[0m"
 
-
+void printTitle(const std::string& title);
 
 #endif

@@ -2,13 +2,17 @@
 
 CPP			= c++
 RM			= rm -rf
-FLAGS	= -Wall -Wextra -Werror -std=c++98 -g
+FLAGS	= -Wall -Wextra -Werror -g -std=c++98
 
-NAME		= array
+NAME		= identify
 
 SRCS		= main.cpp \
-
-
+			  A.cpp \
+			  B.cpp \
+			  C.cpp \
+			  Base.cpp
+		
+		
 
 OBJSDIR		= obj
 OBJS		= $(addprefix $(OBJSDIR)/, $(SRCS:.cpp=.o))

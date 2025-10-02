@@ -4,12 +4,9 @@
 #include <string>
 
 struct Data {
-    int id;
-    std::string name;
-	float value;
-
-	Data(int id, const std::string& name, float value)
-		: id(id), name(name), value(value) {}
+    int data_int;
+    std::string data_string;
+	float data_float;
 };
 
 #endif // DATA_HPP

@@ -8,6 +8,7 @@ NAME		= whatever
 
 SRCS		= main.cpp \
 			utils.cpp \
+			whatever.cpp
 
 
 
