@@ -118,6 +118,10 @@ static void sortDequeRecursive(std::deque<int>& arr, int& comparisons, bool debu
             }
         }
     }
+    // If there's a leftover element, add it to the losers chain as the last element
+    if (hasLeftover) {
+        losers.push_back(leftover); // index will be winners.size()
+    }
 
     // Шаг 4: Построение основной цепочки
     std::deque<int> mainChain;
@@ -155,12 +159,24 @@ static void sortDequeRecursive(std::deque<int>& arr, int& comparisons, bool debu
             for (int k = 1; k <= (int)winners.size(); ++k) insertOrder.push_back(k);
         }
 
-        // If there's a leftover element, process it as the last item in insertOrder
+        // If there's a leftover element, decide where to place it in insertOrder.
+        // Prefer placing it before the last Jacobsthal-derived loser when possible.
         if (hasLeftover) {
-            insertOrder.push_back((int)winners.size() + 1); // sentinel for leftover
+            int sentinel = (int)winners.size() + 1;
+            if (!jacob.empty()) {
+                int lastJacob = jacob.back();
+                std::vector<int>::iterator it = std::find(insertOrder.begin(), insertOrder.end(), lastJacob);
+                if (it != insertOrder.end()) {
+                    insertOrder.insert(it, sentinel);
+                } else {
+                    insertOrder.push_back(sentinel);
+                }
+            } else {
+                insertOrder.push_back(sentinel);
+            }
         }
 
-        std::deque<bool> inserted(winners.size(), false);
+        std::deque<bool> inserted(winners.size() + (hasLeftover ? 1 : 0), false);
 
         // SPECIAL CASE: insert a1 (loser[0]) before b1 without comparison
         if (!losers.empty() && !mainChain.empty()) {

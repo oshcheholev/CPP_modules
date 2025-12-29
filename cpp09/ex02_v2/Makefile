@@ -64,8 +64,8 @@ test: all
 	./$(NAME) $$(seq 1 5 | shuf | tr '\n' ' ') --debug
 # 	@echo "\n=== Test 14: Array of 10 with debug flag ==="
 # 	./$(NAME)  $$(seq 1 10 | shuf | tr '\n' ' ')--debug
-# 	@echo "\n=== Test 15: Array of 20 with debug flag ==="
-# 	./$(NAME)  $$(seq 1 20 | shuf | tr '\n' ' ')--debug
+	@echo "\n=== Test 15: Array of 33 with debug flag ==="
+	./$(NAME)  $$(seq 1 33 | shuf | tr '\n' ' ')--debug
 
 
 
