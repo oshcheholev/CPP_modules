@@ -6,22 +6,22 @@
 #include <string>
 
 // Non-template helpers for std::vector<int>
-static int binaryFindInsertPosVector(const std::vector<int>& cont, const int& value, int limit, int &comparisons, bool debug, int depth = 0, const std::string& tag = "") {
+static int binaryFindInsertPosVector(const std::vector<int>& cont, const int& value, int limit, int &comparisons, bool debug, int depth /*= 0*/, const std::string& tag /*= ""*/) {
+    // bounded lower_bound over range [0, limit)
+    if (limit <= 0) return 0;
     int left = 0;
     int right = limit - 1;
     while (left <= right) {
-        int mid = left + (right - left) / 2;
+        int mid = left + (right - left + 1) / 2; // upper-mid
         comparisons++;
         if (debug) {
             std::cout << std::string(depth * 2, ' ') << "Comparison " << comparisons
-                      << " (" << tag << "): cont[" << mid << "]=" << cont[mid]
+                      << " (" << tag << "): mid[" << mid << "]=" << cont[mid]
                       << " < value=" << value << " -> ";
         }
         if (cont[mid] < value) {
-            if (debug) std::cout << "true" << std::endl;
             left = mid + 1;
         } else {
-            if (debug) std::cout << "false" << std::endl;
             right = mid - 1;
         }
     }
@@ -129,27 +129,60 @@ static void sortVectorRecursive(std::vector<int>& arr, int& comparisons, bool de
 
     // Шаг 5: Вставка проигравших в порядке Якобсталя
     if (winners.size() > 1) {
-        // Генерируем последовательность Якобсталя для индексов проигравших
+        // Генерируем последовательность Якобсталя (skeleton)
         std::vector<int> jacob = PmergeMe::generateJacobsthal(winners.size() - 1);
 
-        std::vector<bool> inserted(winners.size(), false);
-
-        // Шаг 6: Вставка непарного элемента
-        if (hasLeftover) {
-            int pos = binaryFindInsertPosVector(mainChain, leftover, (int)mainChain.size(), comparisons, debug, depth, "insert leftover");
-            mainChain.insert(mainChain.begin() + pos, leftover);
-
-            if (debug) {
-                std::cout << std::string(depth * 2, ' ') << "Insert leftover "
-                          << leftover << " at pos " << pos << std::endl;
+        // Построим полную Knuth/Ford–Johnson последовательность вставки проигравших
+        // Пример: 1,3,2,5,4,11,10,9,8,7,6,...
+        std::vector<int> insertOrder;
+        if (!jacob.empty()) {
+            insertOrder.push_back(1);
+            int prev = 1;
+            for (size_t ji = 1; ji < jacob.size(); ++ji) {
+                int j = jacob[ji];
+                if (j > (int)winners.size()) break;
+                insertOrder.push_back(j);
+                // append descending numbers between prev and j (exclusive)
+                for (int k = j - 1; k > prev && (int)insertOrder.size() < (int)winners.size(); --k) {
+                    insertOrder.push_back(k);
+                }
+                prev = j;
+                if ((int)insertOrder.size() >= (int)winners.size()) break;
             }
+            // If still not filled, append remaining indices in descending order
+            for (int k = (int)winners.size(); (int)insertOrder.size() < (int)winners.size() && k >= 1; --k) {
+                if (std::find(insertOrder.begin(), insertOrder.end(), k) == insertOrder.end())
+                    insertOrder.push_back(k);
+            }
+        } else {
+            // fallback: simple 1..n
+            for (int k = 1; k <= (int)winners.size(); ++k) insertOrder.push_back(k);
         }
 
-        // Вставляем проигравших в порядке Якобсталя
-        for (size_t i = 0; i < jacob.size(); i++) {
-            int idx = jacob[i] - 1; // L3 -> idx=2, L2 -> idx=1, ...
+        // If there's a leftover element, process it as the last item in insertOrder
+        if (hasLeftover) {
+            insertOrder.push_back((int)winners.size() + 1); // sentinel for leftover
+        }
+
+        std::vector<bool> inserted(winners.size(), false);
+        // SPECIAL CASE: insert a1 (loser[0]) before b1 without comparison
+        if (!losers.empty() && !mainChain.empty()) {
+            mainChain.insert(mainChain.begin(), losers[0]);
+            inserted[0] = true;
+        }
+
+        // Вставляем проигравших в полном Knuth-порядке
+        for (size_t ord = 0; ord < insertOrder.size(); ++ord) {
+            int val = insertOrder[ord];
+            if (val == (int)winners.size() + 1) {
+                int pos = binaryFindInsertPosVector(mainChain, leftover, (int)mainChain.size(), comparisons, debug, depth, "insert leftover (in-order)");
+                mainChain.insert(mainChain.begin() + pos, leftover);
+                continue;
+            }
+
+            int idx = val - 1; // convert to 0-based
             if (idx >= 0 && idx < (int)winners.size() && !inserted[idx]) {
-                // Находим позицию победителя
+                // Найти позицию победителя
                 int winnerPos = 0;
                 for (size_t j = 0; j < mainChain.size(); j++) {
                     if (mainChain[j] == winners[idx]) {
@@ -158,44 +191,17 @@ static void sortVectorRecursive(std::vector<int>& arr, int& comparisons, bool de
                     }
                 }
 
-                // Вставляем проигравшего ПЕРЕД победителем
                 int pos = binaryFindInsertPosVector(mainChain, losers[idx], winnerPos, comparisons, debug, depth, "insert L sequence");
-
                 mainChain.insert(mainChain.begin() + pos, losers[idx]);
                 inserted[idx] = true;
-
-                if (debug) {
-                    std::cout << std::string(depth * 2, ' ') << "Insert L" << (idx+1)
-                              << "=" << losers[idx] << " before W" << (idx+1)
-                              << " at pos " << pos << std::endl;
-                }
             }
         }
 
-        // Вставляем оставшихся проигравших в обратном порядке
-        for (int i = winners.size() - 1; i >= 0; i--) {
-            if (!inserted[i]) {
-                int winnerPos = 0;
-                for (size_t j = 0; j < mainChain.size(); j++) {
-                    if (mainChain[j] == winners[i]) {
-                        winnerPos = j;
-                        break;
-                    }
-                }
-
-                int pos = binaryFindInsertPosVector(mainChain, losers[i], winnerPos, comparisons, debug, depth, "insert remaining");
-
-                mainChain.insert(mainChain.begin() + pos, losers[i]);
-
-                if (debug) {
-                    std::cout << std::string(depth * 2, ' ') << "Insert remaining L" << (i+1)
-                              << "=" << losers[i] << " before W" << (i+1)
-                              << " at pos " << pos << std::endl;
-                }
-            }
-        }
+        // (leftover will be inserted after all losers — done as final step)
     }
 
+
+    // FINAL STEP handled via insertOrder when present
 
     // Заменяем исходный массив
     arr = mainChain;
@@ -206,8 +212,8 @@ static void sortVectorRecursive(std::vector<int>& arr, int& comparisons, bool de
             std::cout << arr[i] << " ";
         }
         std::cout << std::endl;
-        std::cout << std::endl;
-        std::cout << "Total comparisons: " << comparisons << std::endl;
+        // std::cout << std::endl;
+        // std::cout << "Total comparisons: " << comparisons << std::endl;
     }
 }
 

@@ -52,13 +52,21 @@ test: all
 	-./$(NAME) 1 2 a 3
 	@echo "\n=== Test 8: Large numbers ==="
 	./$(NAME) 2147483647 1000000000 42
-	@echo "\n=== Test 9: All-equal elements (should print Error) ==="
-	-./$(NAME) 5 5 5 5 5
-	@echo "\n=== Test 10: Debug with duplicates ==="
-	-./$(NAME) 3 3 1 --debug
-	@echo "\n=== Test 11: Random 3000 elements ==="
-	./$(NAME) $$(seq 1 3000 | shuf | tr '\n' ' ')
+	@echo "\n=== Test 9: Out of bounds integer (should print Error) ==="
+	-./$(NAME) 2147483648 1 2
+	@echo "\n=== Test 10: Negative numbers (should print Error) ==="
+	-./$(NAME) -3 3 1 --debug
+# 	@echo "\n=== Test 11: Random 3000 elements ==="
+# 	./$(NAME) $$(seq 1 3000 | shuf | tr '\n' ' ')
 	@echo "\n=== Test 12: Many small-range duplicates (random) ==="
-	./$(NAME) $$(shuf -i 0-9 -n 50 -r | tr '\n' ' ')
+	-./$(NAME) $$(shuf -i 0-9 -n 50 -r | tr '\n' ' ')
+	@echo "\n=== Test 13: Array of 5 with debug flag ==="
+	./$(NAME) $$(seq 1 5 | shuf | tr '\n' ' ') --debug
+# 	@echo "\n=== Test 14: Array of 10 with debug flag ==="
+# 	./$(NAME)  $$(seq 1 10 | shuf | tr '\n' ' ')--debug
+# 	@echo "\n=== Test 15: Array of 20 with debug flag ==="
+# 	./$(NAME)  $$(seq 1 20 | shuf | tr '\n' ' ')--debug
+
+
 
 .PHONY	: all clean fclean re

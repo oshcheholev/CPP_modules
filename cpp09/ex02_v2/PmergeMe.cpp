@@ -27,6 +27,8 @@ std::vector<int> PmergeMe::generateJacobsthal(int n) {
         if (next > n) break;
         jacob.push_back(next);
     }
+    for (size_t i = 0; i < jacob.size(); i++) {
+        std::cout << "Jacobsthal[" << i << "] = " << jacob[i] << std::endl; }
     return jacob;
 }
 
@@ -99,21 +101,23 @@ int PmergeMe::binarySearch(const std::deque<int>& container, int value, int left
 // templated binary search to find insertion position (lower_bound) with counting and debug
 template<typename Container>
 static int binaryFindInsertPos(const Container& cont, const typename Container::value_type& value, int limit, int &comparisons, bool debug, int depth = 0, const std::string& tag = "") {
+    (void) depth;
+    if (debug) std::cout << tag;
     int left = 0;
     int right = limit - 1;
     while (left <= right) {
         int mid = left + (right - left) / 2;
         comparisons++;
-        if (debug) {
-            std::cout << std::string(depth * 2, ' ') << "Comparison " << comparisons
-                      << " (" << tag << "): cont[" << mid << "]=" << cont[mid]
-                      << " < value=" << value << " -> ";
-        }
+        // if (debug) {
+        //     std::cout << std::string(depth * 2, ' ') << "Comparison " << comparisons
+        //               << " (" << tag << "): cont[" << mid << "]=" << cont[mid]
+        //               << " < value=" << value << " -> ";
+        // }
         if (cont[mid] < value) {
-            if (debug) std::cout << "true" << std::endl;
+            // if (debug) std::cout << "true" << std::endl;
             left = mid + 1;
         } else {
-            if (debug) std::cout << "false" << std::endl;
+            // if (debug) std::cout << "false" << std::endl;
             right = mid - 1;
         }
     }
@@ -139,7 +143,13 @@ double PmergeMe::sort(std::vector<int>& vec, bool debugMode) {
     clock_gettime(CLOCK_MONOTONIC, &ts_start);
     fordJohnsonSort(vec, 0, vec.size() - 1);
     clock_gettime(CLOCK_MONOTONIC, &ts_end);
-	// std::cout << "Total comparisons: " << comparisons << std::endl;
+    if (debug) {
+        int n = (int)vec.size();
+        std::cout << "Total comparisons for vector: " << comparisons << std::endl;
+        long long lb = informationLowerBoundComparisons(n);
+        std::cout << "Theoretical lower bound for " << n << " elements: "
+                  << lb << std::endl;
+    }
 
     double time = (ts_end.tv_sec - ts_start.tv_sec) * 1e6 + (ts_end.tv_nsec - ts_start.tv_nsec) / 1e3;
     return time;
@@ -148,14 +158,19 @@ double PmergeMe::sort(std::vector<int>& vec, bool debugMode) {
 double PmergeMe::sort(std::deque<int>& deq, bool debugMode) {
     debug = debugMode;
     comparisons = 0;
-    if (debugMode) {
-        int n = (int)deq.size();
-        long long lb = informationLowerBoundComparisons(n);
-        std::cout << "Theoretical lower bound for " << n << " elements: " << lb << std::endl;
-    }
+    // if (debugMode) {
+    //     int n = (int)deq.size();
+    //     long long lb = informationLowerBoundComparisons(n);
+    // }
     struct timespec ts_start, ts_end;
     clock_gettime(CLOCK_MONOTONIC, &ts_start);
     fordJohnsonSort(deq, 0, deq.size() - 1);
+    if (debug) {
+        int n = (int)deq.size();
+        std::cout << "Total comparisons for deque: " << comparisons << std::endl;
+        long long lb = informationLowerBoundComparisons(n);
+        std::cout << "Theoretical lower bound for " << n << " elements: " << lb << std::endl;
+    }
     clock_gettime(CLOCK_MONOTONIC, &ts_end);
 
     double time = (ts_end.tv_sec - ts_start.tv_sec) * 1e6 + (ts_end.tv_nsec - ts_start.tv_nsec) / 1e3;
