@@ -20,9 +20,10 @@ std::vector<int> PmergeMe::generateJacobsthal(int n) {
     std::vector<int> jacob;
     if (n >= 1) jacob.push_back(1);
     if (n >= 2) jacob.push_back(3);
-    
-    for (int i = 2; ; i++) {
-        int next = jacob[i-1] + 2 * jacob[i-2];
+
+    while (jacob.size() >= 2) {
+        int s = jacob.size();
+        int next = jacob[s-1] + 2 * jacob[s-2];
         if (next > n) break;
         jacob.push_back(next);
     }
@@ -35,8 +36,9 @@ std::deque<int> PmergeMe::generateJacobsthalDeque(int n) {
     if (n >= 1) jacob.push_back(1);
     if (n >= 2) jacob.push_back(3);
 
-    for (int i = 2; ; i++) {
-        int next = jacob[i-1] + 2 * jacob[i-2];
+    while (jacob.size() >= 2) {
+        int s = jacob.size();
+        int next = jacob[s-1] + 2 * jacob[s-2];
         if (next > n) break;
         jacob.push_back(next);
     }
